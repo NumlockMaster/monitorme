@@ -58,14 +58,5 @@
       "color": "#64748B"
     }
   ],
-  "category_group_defaults": {
-    "Client Projects": "Earning now",
-    "MRR": "Building",
-    "Tools": "Building",
-    "Learning": "Learning",
-    "Training": "Learning",
-    "Personal": "Personal",
-    "Unclassified": "Building"
-  },
   "status_bar_days": 7
 }

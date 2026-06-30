@@ -133,7 +133,7 @@ def _add_hours(by_group, cwd, start, end, projects):
     if hours < 1 / 3600:
         return
     info = lookup_project(cwd, projects)
-    group = info["group"] if info and "group" in info else "Building"
+    group = info["group"] if info and "group" in info else "Personal"
     by_group[group] += hours
 
 
