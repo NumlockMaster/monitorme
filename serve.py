@@ -31,6 +31,19 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             return
 
+        allowed_origins = {f'http://localhost:{PORT}', f'http://127.0.0.1:{PORT}'}
+        origin = self.headers.get('Origin', '')
+        if origin and origin not in allowed_origins:
+            self.send_response(403)
+            self.end_headers()
+            return
+
+        ct = self.headers.get('Content-Type', '')
+        if 'application/json' not in ct:
+            self.send_response(415)
+            self.end_headers()
+            return
+
         length = int(self.headers.get('Content-Length', 0))
         body = json.loads(self.rfile.read(length))
 
@@ -46,7 +59,7 @@ class Handler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
-        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Origin', f'http://localhost:{PORT}')
         self.end_headers()
         self.wfile.write(json.dumps({
             'ok': result.returncode == 0,

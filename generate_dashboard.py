@@ -512,6 +512,10 @@ const PROJECTS = /*PROJECTS_DATA*/;
 const CONFIG   = /*CONFIG_DATA*/;
 const tip      = document.getElementById('tip');
 
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
 let projChart;
 let currentPeriod = 'all';
 
@@ -577,7 +581,7 @@ function renderBarRow(item, totalHours) {
   return `
     <div class="group-row">
       <div class="group-label">
-        <span style="color:${item.color}">${item.emoji ? item.emoji + ' ' : ''}${item.name}</span>
+        <span style="color:${item.color}">${item.emoji ? esc(item.emoji) + ' ' : ''}${esc(item.name)}</span>
         <span style="font-size:13px">${pctLabel}</span>
       </div>
       <div class="group-track">
@@ -797,9 +801,9 @@ function openSettings() {
 function renderGroupRenameList() {
   document.getElementById('group-rename-list').innerHTML = editedGroups.map((g, i) => `
     <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f8fafc">
-      <span style="font-size:16px;width:24px;text-align:center">${g.emoji || ''}</span>
+      <span style="font-size:16px;width:24px;text-align:center">${g.emoji ? esc(g.emoji) : ''}</span>
       <span style="width:10px;height:10px;border-radius:50%;background:${g.color};flex-shrink:0;display:inline-block"></span>
-      <input type="text" value="${g.name}"
+      <input type="text" value="${esc(g.name)}"
         style="flex:1;border:1px solid var(--border);border-radius:7px;padding:5px 8px;font-size:12px;color:var(--text)"
         oninput="renameGroup(${i}, this.value)">
     </div>`).join('');
@@ -809,7 +813,7 @@ function renderCatRenameList() {
   document.getElementById('cat-rename-list').innerHTML = editedCategories.map((c, i) => `
     <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #f8fafc">
       <span style="width:12px;height:12px;border-radius:3px;background:${c.color};flex-shrink:0;display:inline-block"></span>
-      <input type="text" value="${c.name}"
+      <input type="text" value="${esc(c.name)}"
         style="flex:1;border:1px solid var(--border);border-radius:7px;padding:5px 8px;font-size:12px;color:var(--text)"
         oninput="renameCategory(${i}, this.value)">
     </div>`).join('');
@@ -848,8 +852,8 @@ function renderProjList() {
     return `
       <div class="proj-row">
         <div>
-          <div class="proj-name">${info.name}</div>
-          <div class="proj-path">${path}</div>
+          <div class="proj-name">${esc(info.name)}</div>
+          <div class="proj-path">${esc(path)}</div>
         </div>
         <select class="proj-select" data-path="${safePath}" data-field="category"
                 onchange="updateProject(this)">${catOpts}</select>
@@ -968,12 +972,15 @@ def main():
         "periods":       periods,
     }
 
+    def safe_json(obj):
+        return json.dumps(obj, ensure_ascii=False).replace('</', '<\\/')
+
     html = HTML_TEMPLATE.replace(
-        "/*DASHBOARD_DATA*/", json.dumps(dashboard_data, ensure_ascii=False)
+        "/*DASHBOARD_DATA*/", safe_json(dashboard_data)
     ).replace(
-        "/*PROJECTS_DATA*/", json.dumps(projects, ensure_ascii=False)
+        "/*PROJECTS_DATA*/", safe_json(projects)
     ).replace(
-        "/*CONFIG_DATA*/", json.dumps(config, ensure_ascii=False)
+        "/*CONFIG_DATA*/", safe_json(config)
     )
 
     OUTPUT_FILE.write_text(html, encoding="utf-8")
