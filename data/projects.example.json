@@ -1,0 +1,22 @@
+{
+  "C:\\Projects\\my-saas": {
+    "name": "My SaaS",
+    "category": "MRR",
+    "group": "Development"
+  },
+  "C:\\Projects\\client-alpha": {
+    "name": "Client Alpha",
+    "category": "Client Projects",
+    "group": "Production"
+  },
+  "C:\\Projects\\side-project": {
+    "name": "Side Project",
+    "category": "Tools",
+    "group": "Development"
+  },
+  "C:\\Projects\\learning-rust": {
+    "name": "Learning Rust",
+    "category": "Learning",
+    "group": "Learning"
+  }
+}

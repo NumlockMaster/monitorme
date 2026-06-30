@@ -1,0 +1,71 @@
+{
+  "idle_threshold_minutes": 30,
+  "groups": [
+    {
+      "name": "Production",
+      "emoji": "💰",
+      "color": "#2563eb"
+    },
+    {
+      "name": "Development",
+      "emoji": "🚀",
+      "color": "#7c3aed"
+    },
+    {
+      "name": "Learning",
+      "emoji": "📚",
+      "color": "#d97706"
+    },
+    {
+      "name": "Personal",
+      "emoji": "❤️",
+      "color": "#db2777"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Client Projects",
+      "color": "#2563EB",
+      "target": 18
+    },
+    {
+      "name": "MRR",
+      "color": "#7C3AED",
+      "target": 40
+    },
+    {
+      "name": "Tools",
+      "color": "#0891B2",
+      "target": 10
+    },
+    {
+      "name": "Personal",
+      "color": "#DB2777",
+      "target": 10
+    },
+    {
+      "name": "Learning",
+      "color": "#D97706",
+      "target": 16
+    },
+    {
+      "name": "Training",
+      "color": "#059669",
+      "target": 6
+    },
+    {
+      "name": "Unclassified",
+      "color": "#64748B"
+    }
+  ],
+  "category_group_defaults": {
+    "Client Projects": "Earning now",
+    "MRR": "Building",
+    "Tools": "Building",
+    "Learning": "Learning",
+    "Training": "Learning",
+    "Personal": "Personal",
+    "Unclassified": "Building"
+  },
+  "status_bar_days": 7
+}
